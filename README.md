@@ -74,32 +74,5 @@ Find top 10 actors with the highest number of movies produced in India.
 
 Categorize content as 'Good' or 'Bad' based on keywords 'kill' or 'violence' in descriptions.
 
-⚡ Example SQL Queries
--- Count Movies vs TV Shows
-SELECT type, COUNT(*) FROM Netflix GROUP BY type;
 
--- Top 5 countries with most content
-SELECT UNNEST(STRING_TO_ARRAY(country,',')) AS country_array, COUNT(*) AS total_content
-FROM Netflix
-GROUP BY country_array
-ORDER BY total_content DESC
-LIMIT 5;
-
--- Top 10 actors in movies produced in India
-SELECT UNNEST(STRING_TO_ARRAY(casts,',')) AS actors, COUNT(*) AS total_number
-FROM Netflix
-WHERE country = 'India'
-GROUP BY actors
-ORDER BY total_number DESC
-LIMIT 10;
-
--- Categorize content based on 'kill' or 'violence'
-SELECT category, COUNT(*) AS total_count
-FROM (
-  SELECT CASE
-    WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'BAD'
-    ELSE 'GOOD'
-  END AS category
-  FROM Netflix
-) AS t
-GROUP BY category;
+ 
